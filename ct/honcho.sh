@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVED/main/misc/build.func)
+source <(curl -fsSL https://raw.githubusercontent.com/MrCraigen/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: MrCraigen
-# License: MIT | https://github.com/community-scripts/ProxmoxVED/raw/main/LICENSE
+# License: MIT | https://github.com/MrCraigen/ProxmoxVE/raw/main/LICENSE
 # Source: https://honcho.dev/ | Github: https://github.com/plastic-labs/honcho
 
 APP="Honcho"
