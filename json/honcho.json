@@ -1,0 +1,49 @@
+{
+    "name": "Honcho",
+    "slug": "honcho",
+    "categories": [
+        20
+    ],
+    "date_created": "2026-07-02",
+    "type": "ct",
+    "updateable": true,
+    "privileged": false,
+    "has_arm": true,
+    "interface_port": 8000,
+    "documentation": "https://docs.honcho.dev/",
+    "website": "https://honcho.dev/",
+    "logo": "https://avatars.githubusercontent.com/u/128617382",
+    "description": "Honcho is an open-source memory library for building stateful AI agents. It provides long-term memory, theory-of-mind user modeling, and a dialectic API so agents can reason about users across sessions. Runs on FastAPI with PostgreSQL + pgvector.",
+    "install_methods": [
+        {
+            "type": "default",
+            "script": "ct/honcho.sh",
+            "config_path": "/opt/honcho/.env",
+            "resources": {
+                "cpu": 2,
+                "ram": 4096,
+                "hdd": 10,
+                "os": "Debian",
+                "version": "13"
+            }
+        }
+    ],
+    "default_credentials": {
+        "username": null,
+        "password": null
+    },
+    "notes": [
+        {
+            "text": "An LLM provider API key (Google Gemini, Anthropic, or OpenAI) is required for memory derivation. Add it to /opt/honcho/.env and run: systemctl restart honcho honcho-deriver",
+            "type": "warning"
+        },
+        {
+            "text": "Two services are installed: honcho (API server, port 8000) and honcho-deriver (background worker that processes memory).",
+            "type": "info"
+        },
+        {
+            "text": "PostgreSQL credentials are saved to ~/honcho.creds inside the container. API authentication is disabled by default (AUTH_USE_AUTH=false) - enable it before exposing the service.",
+            "type": "info"
+        }
+    ]
+}
