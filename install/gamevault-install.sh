@@ -13,11 +13,19 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Enabling contrib/non-free (needed for p7zip-rar)"
+msg_info "Enabling contrib/non-free (needed for RAR support)"
 if [[ -f /etc/apt/sources.list.d/debian.sources ]]; then
-  sed -i -e "s/^Components: main$/Components: main contrib non-free non-free-firmware/" /etc/apt/sources.list.d/debian.sources
+  SRC_FILE=/etc/apt/sources.list.d/debian.sources
+  # Debian 13's default file only ships "Components: main non-free-firmware",
+  # so we add whichever of contrib/non-free/non-free-firmware are missing,
+  # on every "Components:" line (main, updates, security), without duplicating.
+  for comp in contrib non-free non-free-firmware; do
+    if ! grep -Eq "^Components:.*[[:space:]]${comp}([[:space:]]|\$)" "$SRC_FILE"; then
+      sed -i "/^Components:/ s/\$/ ${comp}/" "$SRC_FILE"
+    fi
+  done
 elif [[ -f /etc/apt/sources.list ]]; then
-  sed -i -e "s/ main$/ main contrib non-free non-free-firmware/" /etc/apt/sources.list
+  sed -i -E "s/^(deb\s+\S+\s+\S+\s+main)(\s.*)?\$/\1 contrib non-free non-free-firmware/" /etc/apt/sources.list
 fi
 $STD apt-get update
 msg_ok "Enabled contrib/non-free"
